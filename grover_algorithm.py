@@ -6,24 +6,8 @@ import numpy as np
 from qiskit import IBMQ, Aer, assemble, transpile
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 from qiskit.providers.ibmq import least_busy
-
-# import basic plot tools
-from qiskit.visualization import plot_histogram
-
 from qiskit import execute
 from quantuminspire.qiskit import QI
-from getpass import getpass
-
-def get_authentication():
-    """Gets the authentication for connecting to the
-       Quantum Inspire API.
-    """
-    print('Enter email:')
-    email = input()
-    print('Enter password')
-    password = getpass()
-    return email, password 
-
 
 def initialize_s(qc, qubits):
     """Apply a H-gate to 'qubits' in qc"""
@@ -32,10 +16,6 @@ def initialize_s(qc, qubits):
     return qc
 
 if __name__ == '__main__':
-    if 'authentication' not in vars().keys():
-        authentication = get_authentication()
-    QI.set_authentication_details(*authentication)
-
     sim = Aer.get_backend('aer_simulator')
 
     # qi_backend = QI.get_backend('QX single-node simulator')
@@ -75,6 +55,7 @@ if __name__ == '__main__':
     aer_sim = Aer.get_backend('aer_simulator')
     qobj = assemble(grover_circuit)
     result = aer_sim.run(qobj).result()
+    print(result)
     counts = result.get_counts()
     print(counts)
     # plot_histogram(counts)
