@@ -7,7 +7,9 @@ from qiskit import IBMQ, Aer, assemble, transpile
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 from qiskit.providers.ibmq import least_busy
 from qiskit import execute
+from qiskit.visualization import *
 from quantuminspire.qiskit import QI
+
 
 def initialize_s(qc, qubits):
     """Apply a H-gate to 'qubits' in qc"""
@@ -25,15 +27,25 @@ if __name__ == '__main__':
     grover_circuit = initialize_s(grover_circuit, [0,1])
 
     # Oracle
+    grover_circuit.barrier
     grover_circuit.cz(0,1) 
 
     # Diffusion operator (U_s)
+    grover_circuit.barrier
     grover_circuit.h([0,1])
-    grover_circuit.z([0,1])
-    grover_circuit.cz(0,1)
-    grover_circuit.h([0,1])
+    grover_circuit.x([0,1])
+    grover_circuit.h([1])
+    grover_circuit.cx(0,1)
+    grover_circuit.h(1)
+    grover_circuit.x(0)
+    grover_circuit.x(1)
+    grover_circuit.h(0)
+    grover_circuit.h(1)
+    grover_circuit.barrier
+
 
     print(grover_circuit)
+    #grover_circuit.draw(output='mpl')
 
     #q_obj = execute(grover_circuit, backend=qi_backend, shots=256)
     # q_result = q_obj.restult()
@@ -57,6 +69,9 @@ if __name__ == '__main__':
     result = aer_sim.run(qobj).result()
     print(result)
     counts = result.get_counts()
+    print("counts:")
     print(counts)
-    # plot_histogram(counts)
+    print("test")
+    plot_histogram(counts, color='midnightblue', title="New Histogram")
+    print("test")
 
