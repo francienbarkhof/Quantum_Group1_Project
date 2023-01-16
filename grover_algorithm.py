@@ -44,7 +44,6 @@ if __name__ == '__main__':
     grover_circuit.barrier
 
 
-    print(grover_circuit)
     #grover_circuit.draw(output='mpl')
 
     #q_obj = execute(grover_circuit, backend=qi_backend, shots=256)
@@ -64,6 +63,8 @@ if __name__ == '__main__':
 
     grover_circuit.measure_all()
 
+    print(grover_circuit)
+
     aer_sim = Aer.get_backend('aer_simulator')
     qobj = assemble(grover_circuit)
     result = aer_sim.run(qobj).result()
@@ -71,7 +72,6 @@ if __name__ == '__main__':
     counts = result.get_counts()
     print("counts:")
     print(counts)
-    print("test")
-    plot_histogram(counts, color='midnightblue', title="New Histogram")
-    print("test")
+    #plot_histogram(counts, color='midnightblue', title="New Histogram")
+
 
