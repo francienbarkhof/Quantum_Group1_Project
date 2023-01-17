@@ -22,25 +22,21 @@ if __name__ == '__main__':
 
     # qi_backend = QI.get_backend('QX single-node simulator')
 
-    n = 2
+    n = 3
     grover_circuit = QuantumCircuit(n)
-    grover_circuit = initialize_s(grover_circuit, [0,1])
+    grover_circuit = initialize_s(grover_circuit, [0,1,2])
 
     # Oracle
     grover_circuit.barrier
-    grover_circuit.cz(0,1) 
+    grover_circuit.ccz(0,1,2) 
 
     # Diffusion operator (U_s)
     grover_circuit.barrier
-    grover_circuit.h([0,1])
-    grover_circuit.x([0,1])
-    grover_circuit.h([1])
-    grover_circuit.cx(0,1)
-    grover_circuit.h(1)
-    grover_circuit.x(0)
-    grover_circuit.x(1)
-    grover_circuit.h(0)
-    grover_circuit.h(1)
+    grover_circuit.h([0,1,2])
+    grover_circuit.x([0,1,2])
+    grover_circuit.ccz(0,1,2)
+    grover_circuit.x([0,1,2])
+    grover_circuit.h([0,1,2])
     grover_circuit.barrier
 
 
