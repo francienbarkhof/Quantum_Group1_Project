@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     # Oracle
     grover_circuit.barrier
-    grover_circuit.ccz(0,1,2) 
+    grover_circuit.cz(0,1) 
 
     # Diffusion operator (U_s)
     grover_circuit.barrier
