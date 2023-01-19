@@ -1,8 +1,5 @@
-from qiskit import NoiseModel
 import numpy as np
-from qiskit import pauli_error, depolarizing_error
-from qiskit import QuantumRegister, ClassicalRegister
-from qiskit import QuantumCircuit, Aer, transpile, assemble
+from qiskit import *
 from qiskit_aer.noise import (NoiseModel, QuantumError, ReadoutError,
     pauli_error, depolarizing_error, thermal_relaxation_error)
 aer_sim = Aer.get_backend('aer_simulator')
@@ -63,3 +60,5 @@ def Noise_sim_thermal():
         noise_thermal.add_quantum_error(errors_cx[j][k], "cx", [j, k])
 
     return noise_thermal
+
+print("finish")
